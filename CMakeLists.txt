@@ -8,6 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
+if(NOT TARGET Bount::GL)
 project(Bount-GL)
 
 set(BOUNT_CORE_MODULE "${CMAKE_CURRENT_LIST_DIR}/Core")
@@ -37,3 +38,4 @@ target_compile_definitions(Bount-GL PRIVATE BOUNT_GL_BUILD_API)
 target_compile_definitions(Bount-GL PUBLIC BOUNT_GL_USE_API)
 target_include_directories(Bount-GL PUBLIC ${Bount_GL_INCLUDE_DIRS})
 target_link_libraries(Bount-GL PUBLIC Bount::Core SDL3::SDL3-shared)
+endif()
