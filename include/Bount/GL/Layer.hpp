@@ -1,5 +1,5 @@
-#ifndef BOUNT_GL_WINDOW_HPP
-#define BOUNT_GL_WINDOW_HPP
+#ifndef BOUNT_GL_LAYER_HPP
+#define BOUNT_GL_LAYER_HPP
 
 #include "Bount/GL/Lib-Macro.hpp"
 
