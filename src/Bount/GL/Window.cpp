@@ -55,6 +55,15 @@ BOUNT_GL_API bool Window::initialize()
     }
     SDL_HideWindow(_handle);
 
+    _surface = SDL_GetWindowSurface(_handle);
+    if (!_surface)
+    {
+        std::cerr << "Failed to get SDL surface: " << SDL_GetError() << std::endl;
+        close();
+        return false;
+    }
+
+
     // Create OpenGL context
     _glContext = SDL_GL_CreateContext(_handle);
     if (!_glContext)
@@ -88,6 +97,7 @@ BOUNT_GL_API void Window::run()
     {
         while (SDL_PollEvent(&event))
         {
+            _layers.handleEvent();
             if (event.type == SDL_EVENT_QUIT)
             {
                 _running = false;
@@ -97,6 +107,8 @@ BOUNT_GL_API void Window::run()
         // Clear screen with a color
         glClearColor(0.125f, 0.375f, 0.75f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        _layers.draw();
 
         SDL_GL_SwapWindow(_handle);
     }
@@ -120,6 +132,11 @@ BOUNT_GL_API void Window::close()
         SDL_GL_DestroyContext(_glContext);
         _glContext = nullptr;
     }
+    if (_surface)
+    {
+        SDL_DestroySurface(_surface);
+        _surface = nullptr;
+    }
     if (_handle)
     {
         SDL_DestroyWindow(_handle);
@@ -132,7 +149,7 @@ BOUNT_GL_API void Window::close()
     }
 }
 
-BOUNT_GL_API const SDL_Surface const* Window::getSurface() const
+BOUNT_GL_API const SDL_Surface* Window::getSurface() const
 {
     return _surface;
 }

@@ -2,6 +2,7 @@
 #define BOUNT_GL_WINDOW_HPP
 
 #include "Bount/GL/Lib-Macro.hpp"
+#include "Bount/GL/Layer.hpp"
 
 #include <SDL3/SDL.h>
 #include <GL/glew.h>
@@ -14,6 +15,8 @@ class Window
 {
     static Window* _instance;
     static std::once_flag _init;
+
+    LayerGroup _layers;
 
     SDL_Window* _handle;
     SDL_Surface* _surface;
@@ -37,7 +40,7 @@ public:
 
     BOUNT_GL_API void close();
 
-    BOUNT_GL_API const SDL_Surface const* getSurface() const;
+    BOUNT_GL_API const SDL_Surface* getSurface() const;
 
 private:
     BOUNT_GL_API Window();
