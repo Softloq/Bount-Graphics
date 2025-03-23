@@ -33,7 +33,7 @@ BOUNT_GL_API Window::~Window()
     
 BOUNT_GL_API bool Window::initialize()
 {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    if (!SDL_Init(SDL_INIT_VIDEO))
     {
         std::cerr << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
         return false;
@@ -74,16 +74,39 @@ BOUNT_GL_API bool Window::initialize()
     }
 
     std::cout << "Initialized SDL Window" << std::endl;
+    return true;
 }
 
 BOUNT_GL_API void Window::run()
 {
+    if (_running) return;
+    _running = true;
 
+    show();
+    SDL_Event event;
+    while (_running) 
+    {
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_EVENT_QUIT)
+            {
+                _running = false;
+            }
+        }
+
+        // Clear screen with a color
+        glClearColor(0.125f, 0.375f, 0.75f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        SDL_GL_SwapWindow(_handle);
+    }
+
+    _running = false;
 }
 
 BOUNT_GL_API void Window::show()
-{   SDL_ShowWindow(_handle);
-
+{
+    SDL_ShowWindow(_handle);
 }
 BOUNT_GL_API void Window::hide()
 {
