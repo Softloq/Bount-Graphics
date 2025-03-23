@@ -16,6 +16,7 @@ class Window
     static std::once_flag _init;
 
     SDL_Window* _handle;
+    SDL_Surface* _surface;
     SDL_GLContext _glContext;
     SDL_Event _event;
     bool _sdl_init;
@@ -35,6 +36,8 @@ public:
     BOUNT_GL_API void hide();
 
     BOUNT_GL_API void close();
+
+    BOUNT_GL_API const SDL_Surface const* getSurface() const;
 
 private:
     BOUNT_GL_API Window();

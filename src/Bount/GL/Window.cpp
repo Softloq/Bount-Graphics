@@ -131,4 +131,9 @@ BOUNT_GL_API void Window::close()
         _sdl_init = false;
     }
 }
+
+BOUNT_GL_API const SDL_Surface const* Window::getSurface() const
+{
+    return _surface;
+}
 }
