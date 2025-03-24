@@ -128,11 +128,6 @@ BOUNT_GL_API void Window::close()
         SDL_GL_DestroyContext(_glContext);
         _glContext = nullptr;
     }
-    if (_surface)
-    {
-        SDL_DestroySurface(_surface);
-        _surface = nullptr;
-    }
     if (_handle)
     {
         SDL_DestroyWindow(_handle);
