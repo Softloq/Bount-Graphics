@@ -24,6 +24,13 @@ class LayerGroup : Layer
 public:
     BOUNT_GL_API void handleEvent() override;
     BOUNT_GL_API void draw() override;
+    
+    BOUNT_GL_API std::shared_ptr<Layer>& front();
+    BOUNT_GL_API std::shared_ptr<Layer>& back();
+    BOUNT_GL_API void append(const std::shared_ptr<Layer>& layer);
+    BOUNT_GL_API void prepend(const std::shared_ptr<Layer>& layer);
+    BOUNT_GL_API void popFront();
+    BOUNT_GL_API void popBack();
 };
 }
 

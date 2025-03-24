@@ -41,6 +41,7 @@ public:
     BOUNT_GL_API void close();
 
     BOUNT_GL_API const SDL_Surface* getSurface() const;
+    BOUNT_GL_API LayerGroup& getLayers();
 
 private:
     BOUNT_GL_API Window();

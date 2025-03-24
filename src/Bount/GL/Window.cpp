@@ -153,4 +153,9 @@ BOUNT_GL_API const SDL_Surface* Window::getSurface() const
 {
     return _surface;
 }
+
+BOUNT_GL_API LayerGroup& Window::getLayers()
+{
+    return _layers;
+}
 }
