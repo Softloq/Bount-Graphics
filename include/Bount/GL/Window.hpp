@@ -7,6 +7,7 @@
 #include <SDL3/SDL.h>
 #include <GL/glew.h>
 
+#include <functional>
 #include <mutex>
 
 namespace Bount::GL
@@ -18,8 +19,9 @@ class Window
 
     LayerGroup _layers;
 
+    std::function<void()> _init_callback;
+
     SDL_Window* _handle;
-    SDL_Surface* _surface;
     SDL_GLContext _glContext;
     SDL_Event _event;
     bool _sdl_init;
@@ -32,6 +34,7 @@ public:
     BOUNT_GL_API static Window& instance();
     
     BOUNT_GL_API bool initialize();
+    BOUNT_GL_API void setInitCallback(const std::function<void()>& callback);
 
     BOUNT_GL_API void run();
 
@@ -40,7 +43,6 @@ public:
 
     BOUNT_GL_API void close();
 
-    BOUNT_GL_API const SDL_Surface* getSurface() const;
     BOUNT_GL_API LayerGroup& getLayers();
 
 private:

@@ -55,15 +55,6 @@ BOUNT_GL_API bool Window::initialize()
     }
     SDL_HideWindow(_handle);
 
-    _surface = SDL_GetWindowSurface(_handle);
-    if (!_surface)
-    {
-        std::cerr << "Failed to get SDL surface: " << SDL_GetError() << std::endl;
-        close();
-        return false;
-    }
-
-
     // Create OpenGL context
     _glContext = SDL_GL_CreateContext(_handle);
     if (!_glContext)
@@ -83,7 +74,12 @@ BOUNT_GL_API bool Window::initialize()
     }
 
     std::cout << "Initialized SDL Window" << std::endl;
+    if (_init_callback) _init_callback();
     return true;
+}
+BOUNT_GL_API void Window::setInitCallback(const std::function<void()>& callback)
+{
+    _init_callback = callback;
 }
 
 BOUNT_GL_API void Window::run()
@@ -147,11 +143,6 @@ BOUNT_GL_API void Window::close()
         SDL_Quit();
         _sdl_init = false;
     }
-}
-
-BOUNT_GL_API const SDL_Surface* Window::getSurface() const
-{
-    return _surface;
 }
 
 BOUNT_GL_API LayerGroup& Window::getLayers()
