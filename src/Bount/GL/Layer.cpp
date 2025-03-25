@@ -6,16 +6,16 @@ BOUNT_GL_API Layer::~Layer()
 {
 }
 
-BOUNT_GL_API void Layer::handleEvent()
+BOUNT_GL_API void Layer::handleEvent(const Event& event)
 {
 }
 BOUNT_GL_API void Layer::draw()
 {
 }
 
-BOUNT_GL_API void LayerGroup::handleEvent()
+BOUNT_GL_API void LayerGroup::handleEvent(const Event& event)
 {
-    for (auto it = _layers.rbegin(); it != _layers.rend(); ++it) (*it)->handleEvent();
+    for (auto it = _layers.rbegin(); it != _layers.rend(); ++it) if (!event.handled()) (*it)->handleEvent(event);
 }
 BOUNT_GL_API void LayerGroup::draw()
 {

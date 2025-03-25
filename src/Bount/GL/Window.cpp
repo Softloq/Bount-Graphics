@@ -88,13 +88,15 @@ BOUNT_GL_API void Window::run()
     _running = true;
 
     show();
-    SDL_Event event;
     while (_running) 
     {
-        while (SDL_PollEvent(&event))
+        while (SDL_PollEvent(&_event))
         {
-            _layers.handleEvent();
-            if (event.type == SDL_EVENT_QUIT)
+            Event event(_event);
+            _layers.handleEvent(event);
+            if (event.handled()) continue;
+            
+            if (_event.type == SDL_EVENT_QUIT)
             {
                 _running = false;
             }
