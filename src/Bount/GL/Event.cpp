@@ -7,7 +7,7 @@ BOUNT_GL_API Event::Event(const SDL_Event& event)
     , _handled(0)
 {
 }
-BOUNT_GL_API SDL_Event& Event::getSDLEvent()
+BOUNT_GL_API const SDL_Event& Event::getSDLEvent() const
 {
     return _event;
 }    

@@ -15,7 +15,7 @@ class Event
 public:
     BOUNT_GL_API Event(const SDL_Event& event);
 
-    BOUNT_GL_API SDL_Event& getSDLEvent();
+    BOUNT_GL_API const SDL_Event& getSDLEvent() const;
     
     BOUNT_GL_API void handle();
     BOUNT_GL_API uint8_t handled() const;

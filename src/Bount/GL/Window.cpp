@@ -74,14 +74,8 @@ BOUNT_GL_API bool Window::initialize()
     }
 
     std::cout << "Initialized SDL Window" << std::endl;
-    if (_init_callback) _init_callback();
     return true;
 }
-BOUNT_GL_API void Window::setInitCallback(const std::function<void()>& callback)
-{
-    _init_callback = callback;
-}
-
 BOUNT_GL_API void Window::run()
 {
     if (_running) return;

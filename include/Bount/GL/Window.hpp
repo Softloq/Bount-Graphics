@@ -19,8 +19,6 @@ class Window
 
     LayerGroup _layers;
 
-    std::function<void()> _init_callback;
-
     SDL_Window* _handle;
     SDL_GLContext _glContext;
     SDL_Event _event;
@@ -34,7 +32,6 @@ public:
     BOUNT_GL_API static Window& instance();
     
     BOUNT_GL_API bool initialize();
-    BOUNT_GL_API void setInitCallback(const std::function<void()>& callback);
 
     BOUNT_GL_API void run();
 
