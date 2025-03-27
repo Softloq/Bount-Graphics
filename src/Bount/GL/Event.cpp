@@ -42,6 +42,12 @@ BOUNT_GL_API EventManager::~EventManager()
     
 }
 
+BOUNT_GL_API void EventManager::bind(DispatcherAddr addr, const std::string& action, const Callback& callback)
+{
+    if (!_dispatchers.contains(addr)) return;
+    _dispatchers[addr][action].push_back(callback);
+}
+
 BOUNT_GL_API size_t EventManager::DispatcherAddrHash::operator()(DispatcherAddr addr) const
 {
     return std::hash<uintptr_t>{}(reinterpret_cast<uintptr_t>(addr));

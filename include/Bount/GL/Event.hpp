@@ -41,11 +41,13 @@ private:
     BOUNT_GL_API ~EventManager();
 
 public:
+    typedef std::function<void (const Event& event)> Callback;
     typedef void* const DispatcherAddr;
     friend class EventDispatcher;
+    
+    BOUNT_GL_API void bind(DispatcherAddr addr, const std::string& action, const Callback& callback);
 
 private:
-    typedef std::function<void (const Event& event)> Callback;
     typedef std::list<Callback> Callbacks;
     typedef std::unordered_map<std::string, Callbacks> ActionMap;
 
