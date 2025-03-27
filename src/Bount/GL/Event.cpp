@@ -20,4 +20,51 @@ BOUNT_GL_API uint8_t Event::handled() const
 {
     return _handled;
 }
+
+EventManager* EventManager::_instance = nullptr;
+std::once_flag EventManager::_init;
+
+BOUNT_GL_API EventManager& EventManager::instance()
+{
+    std::call_once(_init, []()
+    {
+        _instance = new EventManager;
+    });
+    return *_instance;
+}
+
+BOUNT_GL_API EventManager::EventManager()
+{
+
+}
+BOUNT_GL_API EventManager::~EventManager()
+{
+    
+}
+
+BOUNT_GL_API size_t EventManager::DispatcherAddrHash::operator()(DispatcherAddr addr) const
+{
+    return std::hash<uintptr_t>{}(reinterpret_cast<uintptr_t>(addr));
+}
+BOUNT_GL_API bool EventManager::DispatcherAddrEqual::operator()(DispatcherAddr addr1, DispatcherAddr addr2) const
+{
+    return addr1 == addr2;
+}
+
+BOUNT_GL_API EventDispatcher::EventDispatcher(EventManager::DispatcherAddr addr)
+    : _addr(addr)
+{
+    EventManager::instance()._dispatchers[addr].clear();
+}
+BOUNT_GL_API EventDispatcher::~EventDispatcher()
+{
+    EventManager::instance()._dispatchers.erase(_addr);
+}
+BOUNT_GL_API void EventDispatcher::fire(const std::string& action, const Event& event)
+{
+    for (auto& event_callback : EventManager::instance()._dispatchers[_addr][action])
+    {
+        event_callback(event);
+    }
+}
 }
