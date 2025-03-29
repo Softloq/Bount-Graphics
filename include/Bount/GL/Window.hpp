@@ -5,7 +5,6 @@
 #include "Bount/GL/Layer.hpp"
 
 #include <SDL3/SDL.h>
-#include <GL/glew.h>
 
 #include <functional>
 #include <mutex>
@@ -21,9 +20,6 @@ class Window
 
     SDL_Window* _handle;
     SDL_GLContext _glContext;
-    SDL_Event _event;
-    bool _sdl_init;
-    bool _running;
 
 public:
     BOUNT_GL_API Window(const Window&) = delete;
@@ -32,15 +28,19 @@ public:
     BOUNT_GL_API static Window& instance();
     
     BOUNT_GL_API bool initialize();
+    BOUNT_GL_API void shutdown();
 
     BOUNT_GL_API void run();
 
     BOUNT_GL_API void show();
     BOUNT_GL_API void hide();
 
-    BOUNT_GL_API void close();
+    BOUNT_GL_API void swap();
 
     BOUNT_GL_API LayerGroup& getLayers();
+
+    BOUNT_GL_API SDL_Window* const getSDLHandle() const;
+    BOUNT_GL_API SDL_GLContext const getGLContext() const;
 
 private:
     BOUNT_GL_API Window();

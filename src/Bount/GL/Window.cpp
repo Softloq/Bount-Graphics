@@ -17,8 +17,6 @@ BOUNT_GL_API Window& Window::instance()
 BOUNT_GL_API Window::Window()
     : _handle(nullptr)
     , _glContext(nullptr)
-    , _sdl_init(false)
-    , _running(false)
 {
 
 }
@@ -29,24 +27,12 @@ BOUNT_GL_API Window::~Window()
     
 BOUNT_GL_API bool Window::initialize()
 {
-    if (!SDL_Init(SDL_INIT_VIDEO))
-    {
-        std::cerr << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
-        return false;
-    }
-    _sdl_init = true;
-
-    // Set OpenGL attributes
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
     // Create SDL window
     _handle = SDL_CreateWindow("Bount: Underdogs Triump Together!", 800, 600, SDL_WINDOW_OPENGL);
     if (!_handle)
     {
         std::cerr << "Failed to create SDL window: " << SDL_GetError() << std::endl;
-        close();
+        shutdown();
         return false;
     }
     SDL_HideWindow(_handle);
@@ -56,64 +42,12 @@ BOUNT_GL_API bool Window::initialize()
     if (!_glContext)
     {
         std::cerr << "Failed to create OpenGL context: " << SDL_GetError() << std::endl;
-        close();
+        shutdown();
         return false;
     }
-
-    // Initialize GLEW
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK)
-    {
-        std::cerr << "Failed to initialize GLEW" << std::endl;
-        close();
-        return false;
-    }
-
-    std::cout << "Initialized SDL Window" << std::endl;
     return true;
 }
-BOUNT_GL_API void Window::run()
-{
-    if (_running) return;
-    _running = true;
-
-    show();
-    while (_running) 
-    {
-        while (SDL_PollEvent(&_event))
-        {
-            Event event(_event);
-            _layers.handleEvent(event);
-            if (event.handled()) continue;
-            
-            if (_event.type == SDL_EVENT_QUIT)
-            {
-                _running = false;
-            }
-        }
-
-        // Clear screen with a color
-        glClearColor(0.125f, 0.375f, 0.75f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        _layers.draw();
-
-        SDL_GL_SwapWindow(_handle);
-    }
-
-    _running = false;
-}
-
-BOUNT_GL_API void Window::show()
-{
-    SDL_ShowWindow(_handle);
-}
-BOUNT_GL_API void Window::hide()
-{
-    SDL_HideWindow(_handle);
-}
-
-BOUNT_GL_API void Window::close()
+BOUNT_GL_API void Window::shutdown()
 {
     if (_glContext)
     {
@@ -125,15 +59,37 @@ BOUNT_GL_API void Window::close()
         SDL_DestroyWindow(_handle);
         _handle = nullptr;
     }
-    if (_sdl_init)
-    {
-        SDL_Quit();
-        _sdl_init = false;
-    }
+}
+BOUNT_GL_API void Window::run()
+{
+    
+}
+
+BOUNT_GL_API void Window::show()
+{
+    SDL_ShowWindow(_handle);
+}
+BOUNT_GL_API void Window::hide()
+{
+    SDL_HideWindow(_handle);
+}
+
+BOUNT_GL_API void Window::swap()
+{
+    SDL_GL_SwapWindow(_handle);
 }
 
 BOUNT_GL_API LayerGroup& Window::getLayers()
 {
     return _layers;
+}
+
+BOUNT_GL_API SDL_Window* const Window::getSDLHandle() const
+{
+    return _handle;
+}
+BOUNT_GL_API SDL_GLContext const Window::getGLContext() const
+{
+    return _glContext;
 }
 }
