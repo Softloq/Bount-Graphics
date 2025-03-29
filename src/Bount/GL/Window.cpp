@@ -1,9 +1,5 @@
+#include "Bount/GL/Precompiled.hpp"
 #include "Bount/GL/Window.hpp"
-
-#include <SDL3/SDL.h>
-#include <GL/glew.h>
-
-#include <iostream>
 
 namespace Bount::GL
 {

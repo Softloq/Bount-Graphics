@@ -1,3 +1,4 @@
+#include "Bount/GL/Precompiled.hpp"
 #include "Bount/GL/Event.hpp"
 
 namespace Bount::GL
