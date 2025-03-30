@@ -2,3 +2,7 @@
 	path = Core
 	url = https://github.com/Softloq/Bount-Game-Core.git
 	ignore = dirty
+[submodule "glm"]
+	path = glm
+	url = https://github.com/g-truc/glm.git
+	ignore = dirty
