@@ -35,13 +35,17 @@ BOUNT_GL_API void Mesh::update()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _glEBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size() * sizeof(U32), _indices.data(), GL_STATIC_DRAW);
 
-    // Vertex positions
+    // Position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glEnableVertexAttribArray(0);
 
-    // Color attribute
+    // Normal
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
     glEnableVertexAttribArray(1);
+
+    // UV
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
+    glEnableVertexAttribArray(2);
     
     glBindVertexArray(0);
 }

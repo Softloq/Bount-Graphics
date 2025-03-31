@@ -68,6 +68,10 @@ BOUNT_GL_API void System::game_loop()
     _running = true;
     Window::instance().show();
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDepthMask(GL_TRUE);
+
     SDL_Event sdl_event;
     while (_running) 
     {
@@ -90,6 +94,8 @@ BOUNT_GL_API void System::game_loop()
         Window::instance().getLayers().draw();
         Window::instance().swap();
     }
+
+    glDisable(GL_BLEND);
 
     _running = false;
 
