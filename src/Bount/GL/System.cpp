@@ -89,7 +89,7 @@ BOUNT_GL_API void System::game_loop()
 
         // Clear screen with a color
         glClearColor(0.125f, 0.375f, 0.75f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         Window::instance().getLayers().draw();
         Window::instance().swap();
