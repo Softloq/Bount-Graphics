@@ -14,7 +14,8 @@ BOUNT_GL_API Source::Source(Type type, const String& source)
 BOUNT_GL_API Source::Source(Type type, const File& file)
     : _type(type)
 {
-    std::ifstream source_fstream(Core::Filesystem::BinPath(file.path));
+    auto sourcePath = Filesystem::Path(Filesystem::Path::Base::Resources, file.path).toString();
+    std::ifstream source_fstream(sourcePath);
     if (!source_fstream.is_open())
     {
         _source = "";
