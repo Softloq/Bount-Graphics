@@ -1,5 +1,4 @@
-.vscode
-build
-external
-
-Custom.cmake
+/.vscode
+/build
+/external
+/.env.cmake
