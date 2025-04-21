@@ -1,7 +1,6 @@
 #ifndef BOUNT_GL_LAYER_HPP
 #define BOUNT_GL_LAYER_HPP
 
-#include "Bount/GL/Lib-Macro.hpp"
 #include "Bount/GL/Event.hpp"
 
 #include <list>

@@ -52,7 +52,7 @@ BOUNT_GL_API void Mesh::update()
 BOUNT_GL_API void Mesh::draw()
 {
     glBindVertexArray(_glVAO);
-    glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(_indices.size()), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 }

@@ -1,7 +1,7 @@
 #ifndef BOUNT_GL_EVENT_HPP
 #define BOUNT_GL_EVENT_HPP
 
-#include "Bount/GL/Lib-Macro.hpp"
+#include "Bount/GL/StandardMacros.hpp"
 
 #include <SDL3/SDL_events.h>
 

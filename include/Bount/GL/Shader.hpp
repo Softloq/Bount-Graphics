@@ -1,7 +1,8 @@
 #ifndef BOUNT_GL_SHADER_HPP
 #define BOUNT_GL_SHADER_HPP
 
-#include "Bount/GL/Lib-Macro.hpp"
+#include "Bount/GL/StandardMacros.hpp"
+
 #include <GL/glew.h>
 #include <initializer_list>
 

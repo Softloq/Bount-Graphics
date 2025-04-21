@@ -1,8 +1,8 @@
 #ifndef BOUNT_GL_MESH_HPP
 #define BOUNT_GL_MESH_HPP
 
-#include "Bount/GL/Lib-Macro.hpp"
 #include "Bount/GL/Vertex.hpp"
+
 #include <vector>
 
 namespace Bount::GL

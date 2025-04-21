@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 include("${CMAKE_CURRENT_LIST_DIR}/Utils.cmake")
 
+option(BUILD_BOUNT_GL_EXAMPLES "BUILD BOUNT GL EXAMPLES" OFF)
+
 # Load Environment Variables
 set(BOUNT_CORE_MODULE "${CMAKE_CURRENT_LIST_DIR}/Core")
 if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/.env.cmake")
@@ -40,7 +42,6 @@ if(NOT TARGET Bount-GL-Library)
     find_package(OpenGL REQUIRED)
     
     set(BOUNT_GL_INCLUDES "${CMAKE_CURRENT_LIST_DIR}/include")
-
     file(GLOB_RECURSE BOUNT_GL_SRC
         "${CMAKE_CURRENT_LIST_DIR}/src/**.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/src/**.cxx"

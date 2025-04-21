@@ -1,7 +1,8 @@
 #ifndef BOUNT_GL_VERTEX_HPP
 #define BOUNT_GL_VERTEX_HPP
 
-#include "Bount/GL/Lib-Macro.hpp"
+#include "Bount/GL/StandardMacros.hpp"
+
 #include <glm/glm.hpp>
 
 namespace Bount::GL

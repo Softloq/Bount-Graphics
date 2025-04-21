@@ -11,7 +11,6 @@ foreach(config ${CMAKE_CONFIGURATION_TYPES})
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${UPPER_CONFIG} "${CMAKE_BINARY_DIR}/${config}/lib")
 endforeach()
 
-
 function(bount_create_module_update_target OUTPUT_NAME MODULE_LIST)
     add_custom_target(${OUTPUT_NAME} DEPENDS "${CMAKE_CURRENT_LIST_DIR}/__run_always")
     foreach(module ${${MODULE_LIST}})
