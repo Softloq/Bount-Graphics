@@ -13,7 +13,6 @@ endif()
 list(APPEND BOUNT_GL_MODULES Core)
 bount_create_module_update_target(Bount-GL-Update-Modules BOUNT_GL_MODULES)
 
-
 if(NOT TARGET Bount-GL-Library)
     project(Bount-GL-Library)
 
@@ -57,7 +56,9 @@ if(NOT TARGET Bount-GL-Library)
     target_compile_definitions(Bount-GL PUBLIC BOUNT_GL_USE_API)
     target_include_directories(Bount-GL PUBLIC ${BOUNT_GL_INCLUDES})
     target_link_libraries(Bount-GL PUBLIC Bount::Core OpenGL::GL glm::glm glew::all sdl::all)
-    target_precompile_headers(Bount-GL PRIVATE "${CMAKE_CURRENT_LIST_DIR}/include/Bount/GL/Precompiled.hpp")
+    target_precompile_headers(Bount-GL PRIVATE
+        "${CMAKE_CURRENT_LIST_DIR}/include/Bount/GL/Precompiled.hpp"
+        "${CMAKE_CURRENT_LIST_DIR}/include/Bount/Window/Precompiled.hpp")
     add_library(Bount::GL ALIAS Bount-GL)
 endif()
 
@@ -66,11 +67,11 @@ if(BUILD_BOUNT_GL_EXAMPLES AND (NOT TARGET Bount-GL-Examples))
 
     list(APPEND BOUNT_GL_EXAMPLES Window)
     foreach(example ${BOUNT_GL_EXAMPLES})
-        file(GLOB_RECURSE Bount-GL-Example-${example}-SRC
+        file(GLOB_RECURSE BOUNT_GL_EXAMPLE_${example}_SRC
             "${CMAKE_CURRENT_LIST_DIR}/examples/${example}/src/**.cpp"
             "${CMAKE_CURRENT_LIST_DIR}/examples/${example}/src/**.cxx"
             "${CMAKE_CURRENT_LIST_DIR}/examples/${example}/src/**.cc")
-        add_executable(Bount-GL-Example-${example} ${Bount-GL-Example-${example}-SRC})
+        add_executable(Bount-GL-Example-${example} ${BOUNT_GL_EXAMPLE_${example}_SRC})
         set_target_properties(Bount-GL-Example-${example} PROPERTIES
             RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIG>/examples"
             RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/$<CONFIG>/examples"

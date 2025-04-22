@@ -1,4 +1,4 @@
-#include "Bount/GL/Precompiled.hpp"
+#include "Bount/Window/Precompiled.hpp"
 #include "Bount/Window/Subsystem.hpp"
 
 namespace Bount::Window
