@@ -1,14 +1,14 @@
-#include <Bount/GL/Subsystem.hpp>
+#include <Bount/Subsystem/Generic.hpp>
 
-#include <iostream>
+import Bount.Graphics.Subsystem;
 
 using namespace Bount;
 
 int main(int argc, char* argv[])
 {
-    GL::Subsystem::getInstance().startup();
-    GL::Subsystem::getInstance().runGameLoop();
-    GL::Subsystem::getInstance().shutdown();
+    Graphics::Subsystem::getInstance().startup();
+    Graphics::Subsystem::getInstance().runGameLoop();
+    Graphics::Subsystem::getInstance().shutdown();
 
     return 0;
 }

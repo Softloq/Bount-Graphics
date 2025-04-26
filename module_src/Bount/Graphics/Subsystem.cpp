@@ -1,17 +1,29 @@
-#include "Bount/GL/Precompiled.hpp"
-#include "Bount/GL/Subsystem.hpp"
-#include "Bount/Window/Subsystem.hpp"
+#include "Bount/Graphics/Precompiled.hpp"
+#include "Bount/Subsystem/Generic.hpp"
 
-namespace Bount::GL
+import Bount.Graphics.Subsystem;
+import Bount.Window.Subsystem;
+import Bount.Event.Base;
+import Bount.Subsystem;
+
+using namespace Bount;
+
+BOUNT_GRAPHICS_API Graphics::Subsystem& Singleton::Generic<Graphics::Subsystem>::getInstance() noexcept { BOUNT_SINGLETON_GET_INSTANCE_IMPL(Graphics::Subsystem); }
+
+namespace Bount::Graphics
 {
-BOUNT_GL_API Subsystem_::Subsystem_() noexcept
+
+Subsystem::Subsystem() noexcept
     : _initSDL(false)
     , _initGLEW(false)
     , _running(false)
 {
 }
+Subsystem::~Subsystem() noexcept
+{
+}
 
-BOUNT_GL_API void Subsystem_::onStartup()
+void Subsystem::onStartup()
 {
     // Initialize SDL
     if (!SDL_Init(SDL_INIT_VIDEO))
@@ -43,7 +55,7 @@ BOUNT_GL_API void Subsystem_::onStartup()
     _initGLEW = true;
 }
 
-BOUNT_GL_API void Subsystem_::onShutdown() noexcept
+void Subsystem::onShutdown() noexcept
 {
     if (_initGLEW)
     {
@@ -58,7 +70,7 @@ BOUNT_GL_API void Subsystem_::onShutdown() noexcept
     }
 }
 
-BOUNT_GL_API void Subsystem_::runGameLoop() noexcept
+void Subsystem::runGameLoop() noexcept
 {
     if (_running) return;
     _running = true;
@@ -73,7 +85,7 @@ BOUNT_GL_API void Subsystem_::runGameLoop() noexcept
     {
         while (SDL_PollEvent(&sdl_event))
         {
-            Event event(sdl_event);
+            Event::Base event(sdl_event);
             Window::Subsystem::getInstance().getLayers().handleEvent(event);
             if (event.handled()) continue;
             

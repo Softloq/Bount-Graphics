@@ -1,16 +1,27 @@
 #include "Bount/Window/Precompiled.hpp"
-#include "Bount/Window/Subsystem.hpp"
+#include "Bount/Subsystem/Generic.hpp"
+
+import Bount.Window.Subsystem;
+import Bount.Graphics.Layer;
+import Bount.Subsystem;
+
+using namespace Bount;
+
+BOUNT_WINDOW_API Window::Subsystem& Singleton::Generic<Window::Subsystem>::getInstance() noexcept { BOUNT_SINGLETON_GET_INSTANCE_IMPL(Window::Subsystem); }
 
 namespace Bount::Window
 {
-BOUNT_WINDOW_API Subsystem_::Subsystem_() noexcept
+Subsystem::Subsystem() noexcept
     : _handle(nullptr)
     , _glContext(nullptr)
 {
+}
 
+Subsystem::~Subsystem() noexcept
+{
 }
     
-BOUNT_WINDOW_API void Subsystem_::onStartup()
+void Subsystem::onStartup()
 {
     // Create SDL window
     _handle = SDL_CreateWindow("Bount Graphics Window", 800, 600, SDL_WINDOW_OPENGL);
@@ -29,7 +40,7 @@ BOUNT_WINDOW_API void Subsystem_::onStartup()
         throw std::exception(error_msg.c_str());
     }
 }
-BOUNT_WINDOW_API void Subsystem_::onShutdown() noexcept
+void Subsystem::onShutdown() noexcept
 {
     if (_glContext)
     {
@@ -43,30 +54,30 @@ BOUNT_WINDOW_API void Subsystem_::onShutdown() noexcept
     }
 }
 
-BOUNT_WINDOW_API void Subsystem_::show() noexcept
+void Subsystem::show() noexcept
 {
     SDL_ShowWindow(_handle);
 }
-BOUNT_WINDOW_API void Subsystem_::hide() noexcept
+void Subsystem::hide() noexcept
 {
     SDL_HideWindow(_handle);
 }
 
-BOUNT_WINDOW_API void Subsystem_::swap() noexcept
+void Subsystem::swap() noexcept
 {
     SDL_GL_SwapWindow(_handle);
 }
 
-BOUNT_WINDOW_API GL::LayerGroup& Subsystem_::getLayers() noexcept
+Graphics::LayerGroup& Subsystem::getLayers() noexcept
 {
     return _layers;
 }
 
-BOUNT_WINDOW_API SDL_Window* const Subsystem_::getSDLHandle() const noexcept
+SDL_Window* const Subsystem::getSDLHandle() const noexcept
 {
     return _handle;
 }
-BOUNT_WINDOW_API SDL_GLContext const Subsystem_::getGLContext() const noexcept
+SDL_GLContext const Subsystem::getGLContext() const noexcept
 {
     return _glContext;
 }

@@ -1,31 +1,32 @@
-#include "Bount/GL/Precompiled.hpp"
-#include "Bount/GL/Mesh.hpp"
+#include "Bount/Graphics/Precompiled.hpp"
 
-namespace Bount::GL
+import Bount.Graphics.Mesh;
+
+namespace Bount::Graphics
 {
-BOUNT_GL_API Mesh::Mesh()
+Mesh::Mesh()
 {
     glGenVertexArrays(1, &_glVAO);
     glGenBuffers(1, &_glVBO);
     glGenBuffers(1, &_glEBO);
 }
-BOUNT_GL_API Mesh::~Mesh()
+Mesh::~Mesh()
 {
     glDeleteVertexArrays(1, &_glVAO);
     glDeleteBuffers(1, &_glVBO);
     glDeleteBuffers(1, &_glEBO);
 }
 
-BOUNT_GL_API void Mesh::addVertices(const std::vector<Vertex>& vertices)
+void Mesh::addVertices(const std::vector<Vertex>& vertices)
 {
     _vertices.insert(_vertices.end(), vertices.begin(), vertices.end());
 }
-BOUNT_GL_API void Mesh::addIndices(const std::vector<U32>& indices)
+void Mesh::addIndices(const std::vector<U32>& indices)
 {
     _indices.insert(_indices.end(), indices.begin(), indices.end());
 }
 
-BOUNT_GL_API void Mesh::update()
+void Mesh::update()
 {
     glBindVertexArray(_glVAO);
 
@@ -49,7 +50,7 @@ BOUNT_GL_API void Mesh::update()
     
     glBindVertexArray(0);
 }
-BOUNT_GL_API void Mesh::draw()
+void Mesh::draw()
 {
     glBindVertexArray(_glVAO);
     glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(_indices.size()), GL_UNSIGNED_INT, 0);

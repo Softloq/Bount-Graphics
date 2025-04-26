@@ -1,17 +1,19 @@
-#include "Bount/GL/Precompiled.hpp"
-#include "Bount/GL/Shader.hpp"
-#include <Bount/Core/Filesystem.hpp>
+#include "Bount/Graphics/Precompiled.hpp"
+
 #include <fstream>
 #include <list>
 
-namespace Bount::GL::Shader
+import Bount.Graphics.Shader;
+import Bount.Filesystem;
+
+namespace Bount::Graphics::Shader
 {
-BOUNT_GL_API Source::Source(Type type, const String& source)
+Source::Source(Type type, const String& source)
     : _type(type)
     , _source(source)
 {
 }
-BOUNT_GL_API Source::Source(Type type, const File& file)
+Source::Source(Type type, const File& file)
     : _type(type)
 {
     auto sourcePath = Filesystem::Path(Filesystem::Path::Base::Resources, file.path).toString();
@@ -25,7 +27,7 @@ BOUNT_GL_API Source::Source(Type type, const File& file)
     buffer << source_fstream.rdbuf();
     _source = buffer.str();
 }
-BOUNT_GL_API GLenum Source::getGLType() const
+GLenum Source::getGLType() const
 {
     switch(_type)
     {
@@ -44,15 +46,15 @@ BOUNT_GL_API GLenum Source::getGLType() const
     }
     return 0;
 }
-BOUNT_GL_API Type Source::getType() const
+Type Source::getType() const
 {
     return _type;
 }
-BOUNT_GL_API const String& Source::getContent() const
+const String& Source::getContent() const
 {
     return _source;
 }
-BOUNT_GL_API Program::Program(const std::initializer_list<Source>& shaders)
+Program::Program(const std::initializer_list<Source>& shaders)
 {
     std::list<GLuint> link_shaders;
     for (auto& shader : shaders)
@@ -80,83 +82,83 @@ BOUNT_GL_API Program::Program(const std::initializer_list<Source>& shaders)
     _glProgram = program;
 }
 
-BOUNT_GL_API void Program::use()
+void Program::use()
 {
     glUseProgram(_glProgram);
 }
 
 // Integer Uniforms
 
-BOUNT_GL_API void Program::setUniformInt(const String& name, I32 x)
+void Program::setUniformInt(const String& name, I32 x)
 {
     glUniform1i(glGetUniformLocation(_glProgram, name.c_str()), x);
 }
-BOUNT_GL_API void Program::setUniformInt(const String& name, I32 x, I32 y)
+void Program::setUniformInt(const String& name, I32 x, I32 y)
 {
     glUniform2i(glGetUniformLocation(_glProgram, name.c_str()), x, y);
 }
-BOUNT_GL_API void Program::setUniformInt(const String& name, I32 x, I32 y, I32 z)
+void Program::setUniformInt(const String& name, I32 x, I32 y, I32 z)
 {
     glUniform3i(glGetUniformLocation(_glProgram, name.c_str()), x, y, z);
 }
-BOUNT_GL_API void Program::setUniformInt(const String& name, I32 x, I32 y, I32 z, I32 w)
+void Program::setUniformInt(const String& name, I32 x, I32 y, I32 z, I32 w)
 {
     glUniform4i(glGetUniformLocation(_glProgram, name.c_str()), x, y, z, w);
 }
 
 // Unsigned Integer Uniforms
 
-BOUNT_GL_API void Program::setUniformUInt(const String& name, U32 x)
+void Program::setUniformUInt(const String& name, U32 x)
 {
     glUniform1ui(glGetUniformLocation(_glProgram, name.c_str()), x);
 }
-BOUNT_GL_API void Program::setUniformUInt(const String& name, U32 x, U32 y)
+void Program::setUniformUInt(const String& name, U32 x, U32 y)
 {
     glUniform2ui(glGetUniformLocation(_glProgram, name.c_str()), x, y);
 }
-BOUNT_GL_API void Program::setUniformUInt(const String& name, U32 x, U32 y, U32 z)
+void Program::setUniformUInt(const String& name, U32 x, U32 y, U32 z)
 {
     glUniform3ui(glGetUniformLocation(_glProgram, name.c_str()), x, y, z);
 }
-BOUNT_GL_API void Program::setUniformUInt(const String& name, U32 x, U32 y, U32 z, U32 w)
+void Program::setUniformUInt(const String& name, U32 x, U32 y, U32 z, U32 w)
 {
     glUniform4ui(glGetUniformLocation(_glProgram, name.c_str()), x, y, z, w);
 }
 
 // Floating-Point Uniforms
 
-BOUNT_GL_API void Program::setUniformFloat(const String& name, F32 x)
+void Program::setUniformFloat(const String& name, F32 x)
 {
     glUniform1f(glGetUniformLocation(_glProgram, name.c_str()), x);
 }
-BOUNT_GL_API void Program::setUniformFloat(const String& name, F32 x, F32 y)
+void Program::setUniformFloat(const String& name, F32 x, F32 y)
 {
     glUniform2f(glGetUniformLocation(_glProgram, name.c_str()), x, y);
 }
-BOUNT_GL_API void Program::setUniformFloat(const String& name, F32 x, F32 y, F32 z)
+void Program::setUniformFloat(const String& name, F32 x, F32 y, F32 z)
 {
     glUniform3f(glGetUniformLocation(_glProgram, name.c_str()), x, y, z);
 }
-BOUNT_GL_API void Program::setUniformFloat(const String& name, F32 x, F32 y, F32 z, F32 w)
+void Program::setUniformFloat(const String& name, F32 x, F32 y, F32 z, F32 w)
 {
     glUniform4f(glGetUniformLocation(_glProgram, name.c_str()), x, y, z, w);
 }
 
 // Double-Precision Floating-Point Uniforms
 
-BOUNT_GL_API void Program::setUniformDouble(const String& name, F64 x)
+void Program::setUniformDouble(const String& name, F64 x)
 {
     glUniform1d(glGetUniformLocation(_glProgram, name.c_str()), x);
 }
-BOUNT_GL_API void Program::setUniformDouble(const String& name, F64 x, F64 y)
+void Program::setUniformDouble(const String& name, F64 x, F64 y)
 {
     glUniform2d(glGetUniformLocation(_glProgram, name.c_str()), x, y);
 }
-BOUNT_GL_API void Program::setUniformDouble(const String& name, F64 x, F64 y, F64 z)
+void Program::setUniformDouble(const String& name, F64 x, F64 y, F64 z)
 {
     glUniform3d(glGetUniformLocation(_glProgram, name.c_str()), x, y, z);
 }
-BOUNT_GL_API void Program::setUniformDouble(const String& name, F64 x, F64 y, F64 z, F64 w)
+void Program::setUniformDouble(const String& name, F64 x, F64 y, F64 z, F64 w)
 {
     glUniform4d(glGetUniformLocation(_glProgram, name.c_str()), x, y, z, w);
 }
