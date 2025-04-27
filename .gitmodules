@@ -1,6 +1,6 @@
 [submodule "Core"]
 	path = .module/Core
-	url = https://github.com/Softloq/Bount-Game-Core.git
+	url = https://github.com/Softloq/Bount-Core.git
 	ignore = dirty
 [submodule "glm"]
 	path = .module/glm
