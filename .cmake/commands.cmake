@@ -38,7 +38,7 @@ macro(create_bount_library_vars LIB_NAME)
     set(${LIB_NAME}_CXX_INCLUDE_DIR "${COMMANDS_CURRENT_LIST_DIR}/../include")
     set(${LIB_NAME}_CXX_SRC_DIR "${COMMANDS_CURRENT_LIST_DIR}/../src")
     set(${LIB_NAME}_CXX_MODULE_DIR "${COMMANDS_CURRENT_LIST_DIR}/../module")
-    set(${LIB_NAME}_CXX_MODULE_SRC_DIR "${COMMANDS_CURRENT_LIST_DIR}/../module_src")
+    set(${LIB_NAME}_CXX_MODULE_SRC_DIR "${COMMANDS_CURRENT_LIST_DIR}/../impl")
     
     file(GLOB_RECURSE ${LIB_NAME}_CXX_HEADER_FILES
         "${${LIB_NAME}_CXX_INCLUDE_DIR}/**.hh"
