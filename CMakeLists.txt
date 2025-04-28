@@ -13,7 +13,6 @@ update_bount_git_module(glm master)
 
 load_github_binaries(GLEW 2.2.0)
 load_github_binaries(SDL 3.2.8)
-find_package(OpenGL REQUIRED)
 
 if(NOT TARGET Bount-Graphics-Library)
     project(Bount-Graphics-Library)
